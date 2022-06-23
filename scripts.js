@@ -76,20 +76,8 @@ function taskComplete(event) {
   event.nextElementSibling.classList.toggle("completed");
 }
 
-function removeTask(event) {
-  let tasks = Array.from(JSON.parse(localStorage.getItem("name")));
-  tasks.forEach((task) => {
-    if (task.task === event.parentNode.children[1].value) {
-      // delete task
-      tasks.splice(tasks.indexOf(task), 1);
-    }
-  });
-  localStorage.setItem("name", JSON.stringify(tasks));
-  event.parentElement.remove();
-}
-
 // store current task to track changes
-var currentTask = null;
+let currentTask = null;
 
 // get current task
 function getCurrentTask(event) {
@@ -126,14 +114,14 @@ function editTask(event) {
 }
 
 function removeTask(event) {
-  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+  let tasks = Array.from(JSON.parse(localStorage.getItem("task")));
   tasks.forEach((task) => {
     if (task.task === event.parentNode.children[1].value) {
       // delete task
       tasks.splice(tasks.indexOf(task), 1);
     }
   });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem("task", JSON.stringify(tasks));
   event.parentElement.remove();
 }
 
@@ -141,13 +129,13 @@ function deleteTask(id) {
   if (id > -1) {
     lists.splice(id, 1);
     // After delete
-    localStorage.setItem("tasks", JSON.stringify(lists));
+    localStorage.setItem("task", JSON.stringify(lists));
   } else {
     console.log("Task was not found");
   }
 }
 // sort tasks alphabetically
-const taskSort = (e) => {
+const nameSort = (e) => {
   const direction = e.target.value;
   const sorted = items.sort((a, b) => {
     if (a.title < b.title) {
