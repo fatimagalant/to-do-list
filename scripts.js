@@ -7,6 +7,7 @@ let tasks = JSON.parse(localStorage.getItem("tasks"))
         createdDate: new Date(),
       },
     ];
+
 // On app load, get all tasks from localStorage
 window.onload = loadTasks;
 
@@ -54,7 +55,7 @@ function addTask() {
     ])
   );
 
-  // create list item, add innerHTML and append to ul
+  // create list item, add innerHTML and add to ul
   const li = document.createElement("li");
   li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check">
       <input type="text" value="${task.value}" class="task" onfocus="getCurrentTask(this)" onblur="editTask(this)">
@@ -76,14 +77,14 @@ function taskComplete(event) {
 }
 
 function removeTask(event) {
-  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+  let tasks = Array.from(JSON.parse(localStorage.getItem("name")));
   tasks.forEach((task) => {
     if (task.task === event.parentNode.children[1].value) {
       // delete task
       tasks.splice(tasks.indexOf(task), 1);
     }
   });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem("name", JSON.stringify(tasks));
   event.parentElement.remove();
 }
 
@@ -119,9 +120,11 @@ function editTask(event) {
       task.task = event.value;
     }
   });
+
   // update local storage
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
 function removeTask(event) {
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
   tasks.forEach((task) => {
@@ -133,6 +136,7 @@ function removeTask(event) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   event.parentElement.remove();
 }
+
 function deleteTask(id) {
   if (id > -1) {
     lists.splice(id, 1);
@@ -160,10 +164,3 @@ const taskSort = (e) => {
     showItems(sorted.reverse());
   }
 };
-// edit
-function edit(ind) {
-  saveInd.value = ind;
-  let todo = localStorage.getItem("task");
-  todoArray = JSON.parse(task);
-  text.value = todoArray[ind];
-}
