@@ -23,6 +23,7 @@ function loadTasks() {
 
   // Get the tasks from localStorage and convert it to an array
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+  console.log(tasks);
 
   // Loop through the tasks and add them to the list
   tasks.forEach((task) => {
@@ -36,22 +37,13 @@ function loadTasks() {
     }" onfocus="getCurrentTask(this)" onblur="editTask(this)">
           <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
     list.insertBefore(li, list.children[0]);
+    console.log(tasks);
   });
 }
 
 function addTask() {
   const task = document.querySelector("form input");
   const list = document.querySelector("ul");
-  // return if task is empty
-  if (task.value === "") {
-    alert("Please add some task!");
-    return false;
-  }
-  // check is task already exist
-  if (document.querySelector(`input[value="${task.value}"]`)) {
-    alert("Task already exist!");
-    return false;
-  }
 
   // add task to local storage
   localStorage.setItem(
@@ -106,6 +98,7 @@ function getCurrentTask(event) {
 // edit the task and update local storage
 function editTask(event) {
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+
   // check if task is empty
   if (event.value === "") {
     alert("Task is empty!");
@@ -140,6 +133,15 @@ function removeTask(event) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   event.parentElement.remove();
 }
+function deleteTask(id) {
+  if (id > -1) {
+    lists.splice(id, 1);
+    // After delete
+    localStorage.setItem("tasks", JSON.stringify(lists));
+  } else {
+    console.log("Task was not found");
+  }
+}
 // sort tasks alphabetically
 const taskSort = (e) => {
   const direction = e.target.value;
@@ -158,3 +160,10 @@ const taskSort = (e) => {
     showItems(sorted.reverse());
   }
 };
+// edit
+function edit(ind) {
+  saveInd.value = ind;
+  let todo = localStorage.getItem("task");
+  todoArray = JSON.parse(task);
+  text.value = todoArray[ind];
+}
