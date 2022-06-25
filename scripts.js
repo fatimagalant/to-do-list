@@ -114,25 +114,15 @@ function editTask(event) {
 }
 
 function removeTask(event) {
-  let tasks = Array.from(JSON.parse(localStorage.getItem("task")));
+  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
   tasks.forEach((task) => {
     if (task.task === event.parentNode.children[1].value) {
-      // delete task
+      //to delete the task
       tasks.splice(tasks.indexOf(task), 1);
     }
   });
-  localStorage.setItem("task", JSON.stringify(tasks));
+  localStorage.setItem("tasks", JSON.stringify(tasks));
   event.parentElement.remove();
-}
-
-function deleteTask(id) {
-  if (id > -1) {
-    lists.splice(id, 1);
-    // After delete
-    localStorage.setItem("task", JSON.stringify(lists));
-  } else {
-    console.log("Task was not found");
-  }
 }
 // sort tasks alphabetically
 const nameSort = (e) => {
